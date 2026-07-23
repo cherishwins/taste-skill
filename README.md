@@ -1,3 +1,14 @@
+> ## 📦 At a Glance — plain-English status (updated 2026-07-23)
+>
+> | | |
+> |---|---|
+> | **What this is** | A **toolbox, not a website** — portable "agent skills" that make AI-built user interfaces look professionally designed. Used behind the scenes when building the other sites. |
+> | **Status** | 🟢 **Active utility** — working asset; improves quality of everything built with it. |
+> | **What's left** | Nothing owed; evolves as new skills are added. |
+> | **Recommendation** | Keep — internal tooling that raises the design floor across the portfolio. |
+
+---
+
 <p align="center">
   <img src="assets/readme-banner.png" alt="Taste Skill - Anti-slop Agent Skills for premium frontends" width="100%" />
 </p>
