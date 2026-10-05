@@ -1,12 +1,11 @@
-> ## 📦 At a Glance — plain-English status (updated 2026-07-23)
+> ## 📦 At a Glance — plain-English status (updated 2026-10-05)
 >
 > | | |
 > |---|---|
-> | **What this is** | A **toolbox, not a website** — portable "agent skills" that make AI-built user interfaces look professionally designed. Used behind the scenes when building the other sites. |
-> | **Status** | 🟢 **Active utility** — working asset; improves quality of everything built with it. |
-> | **What's left** | Nothing owed; evolves as new skills are added. |
-> | **Recommendation** | Keep — internal tooling that raises the design floor across the portfolio. |
-
+> | **What this is** | A **toolbox, not a website** — portable "agent skills" for AI-built user interfaces. Fork of Leonxlnx/taste-skill. |
+> | **Status** | 🟡 **Reference library** — reviewed October 2026 ([REVIEW.md](REVIEW.md)). The upstream catalogue of AI design tells is strong; the skills themselves contradict each other and override brand rules. |
+> | **What to install in site repos** | Only **`slop-audit`** (added in this fork): a short post-draft audit that never overrides a brand kit or CLAUDE.md. |
+> | **Recommendation** | Keep as a library. Use the image-generation skills (web, mobile, brandkit) in ChatGPT/Codex sessions, not inside site repos. |
 ---
 
 <p align="center">
@@ -106,6 +105,7 @@ The `Install name` column is the exact value you pass to `--skill`.
 | **minimalist-skill** | `minimalist-ui` | Editorial product UI (Notion/Linear vibes), restrained palette, crisp structure. |
 | **brutalist-skill** | `industrial-brutalist-ui` | Hard mechanical language: Swiss type, sharp contrast, experimental layout. |
 | **stitch-skill** | `stitch-design-taste` | Google Stitch-compatible rules, including optional `DESIGN.md` export format. |
+| **slop-audit** | `slop-audit` | *(This fork.)* Post-draft audit for generic or untrustworthy AI design patterns. Prescribes no stack, font or palette; the project's brand kit and CLAUDE.md always win. See [REVIEW.md](REVIEW.md). |
 
 ### Image generation skills
 
@@ -119,6 +119,7 @@ These produce design images only (no code). Use with ChatGPT Images, Codex image
 
 ### Which one should I use?
 
+- *(This fork)* In a repo with its own brand kit or house rules, install **slop-audit** only and run it after drafting.
 - Start with **taste-skill** for the safest general default. (Now v2 experimental - see what changed in the [CHANGELOG](CHANGELOG.md).)
 - If you depend on the exact behavior of the original taste-skill, install **taste-skill-v1** instead. 
 - Use **gpt-taste** when you want the stricter GPT/Codex-oriented rules and motion/layout enforcement. 
