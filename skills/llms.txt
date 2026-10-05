@@ -11,3 +11,4 @@ output-skill: Prevents AI from being lazy, skipping code blocks, or using placeh
 minimalist-skill: Enforces clean, editorial-style interfaces (Notion/Linear style) with strict monochrome palettes.
 brutalist-skill: Raw mechanical interfaces, Swiss typography, extreme scale contrast. (Beta)
 stitch-skill: Google Stitch-compatible semantic design rules for premium AI UI generation.
+slop-audit: (fork) Post-draft audit for generic or untrustworthy AI design patterns. No stack, font or palette prescriptions; brand kit and CLAUDE.md always override it.
