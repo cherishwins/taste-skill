@@ -67,10 +67,17 @@ Where the pack worked: npsi-site commit 5b92895 (July 2026). It was used as an a
 
 ## Still to do
 
-Replace the pack with `slop-audit` in the three site repos. In each repo:
+A second audit (12 October 2026) changed where slop-audit lives: once, at account level, not as a copy in each repo. Copies drift. The vendored `design-taste-frontend-v1` differed from this fork at line 50, and two copies of another skill ended up with contradictory rules under one name. A session that attaches several repos would also list the same skill once per copy.
 
-- delete `.agents/` and `skills-lock.json` (both contain only this pack);
-- delete the pack's entries under `.claude/skills/`, keeping the repo's own skills;
-- copy `skills/slop-audit/SKILL.md` to `.claude/skills/slop-audit/SKILL.md`.
+Done:
 
-This edits the skills an agent loads, so it is done by the owner, not by an agent.
+- npsi-site, juchegang and ipurpose: `.agents/`, `skills-lock.json` and the pack's entries under `.claude/skills/` deleted in each repo's October 2026 cleanup PR, keeping each repo's own skills. Every deleted file is here.
+- This repo: slop-audit revised for account use. The description is cut to a quoted one-liner. Em-dashes that published UI strings already use consistently count as house style. From `redesign-existing-projects` it gains card-group alignment (B), the current-page nav indicator (F, report only, never hand-edited where a script writes the nav), tabular figures and balanced headings (C), and meta, OG, favicon and a branded 404 (F). From `design-taste-frontend` it gains the Core Web Vitals targets (F), the official-package and one-system rule and the fixed grain layer (C), and the optional "Reading this as:" first line of the report. Overflow is measured from the DOM, because headless captures can clip.
+- `design-taste-frontend-v1` line 50: `LAYOUT_VARIANCE`, a dial v1 never defines, corrected to `DESIGN_VARIANCE`.
+
+For the owner (this edits the skills an agent loads, so it is done by the owner, not by an agent):
+
+- Upload slop-audit to claude.ai as a personal skill (Settings, Capabilities, Skills) from a zip whose root is the `slop-audit/` folder: `cd skills && zip -r /tmp/slop-audit.zip slop-audit`. In the next Claude Code session, check that it appears under `/root/.claude/skills/synced`.
+- This folder stays the source. Account skills are edited in claude.ai, and those edits do not flow back here. Edit here and re-upload; if a change is made in claude.ai, copy it back here.
+- Don't add slop-audit to any repo's `.claude/skills/`. One copy only.
+- If `industrial-brutalist-ui` is ever installed for a brief that asks for brutalism, fix it first: delete the ®, © and ™-as-decoration line (L79), replace the randomised status strings (L80) with real or clearly labelled sample data, and add contrast and `prefers-reduced-motion` rules.

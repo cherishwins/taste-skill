@@ -1,12 +1,15 @@
-> ## 📦 At a Glance — plain-English status (updated 2026-10-05)
+> ## 📦 At a Glance — plain-English status (updated 2026-10-12)
 >
 > | | |
 > |---|---|
 > | **What this is** | A **toolbox, not a website** — portable "agent skills" for AI-built user interfaces. Fork of Leonxlnx/taste-skill. |
 > | **Status** | 🟡 **Reference library** — reviewed October 2026 ([REVIEW.md](REVIEW.md)). The upstream catalogue of AI design tells is strong; the skills themselves contradict each other and override brand rules. |
-> | **What to install in site repos** | Only **`slop-audit`** (added in this fork): a short post-draft audit that never overrides a brand kit or CLAUDE.md. |
+> | **What to install** | Only **`slop-audit`** (added in this fork), once, as a personal skill on the claude.ai account. Nothing goes into site repos. It is a short post-draft audit that never overrides a brand kit or CLAUDE.md. |
 > | **Recommendation** | Keep as a library. Use the image-generation skills (web, mobile, brandkit) in ChatGPT/Codex sessions, not inside site repos. |
 ---
+
+> **This repo is the library.** The copies of this pack that `npx skills add` vendored into npsi-site, juchegang and ipurpose (`.agents/skills/`, `skills-lock.json` and the pack's entries under `.claude/skills/`) were removed in October 2026. Nothing was lost: every file they held is here, and the one place a copy differed (`design-taste-frontend-v1`, line 50) is corrected here. Don't vendor skills from this repo into a site repo again. `slop-audit` is the single design skill: it is uploaded to claude.ai from `skills/slop-audit/`, so edit it here, rebuild the zip, and re-upload. See [REVIEW.md](REVIEW.md#still-to-do).
+
 
 <p align="center">
   <img src="assets/readme-banner.png" alt="Taste Skill - Anti-slop Agent Skills for premium frontends" width="100%" />
@@ -105,7 +108,7 @@ The `Install name` column is the exact value you pass to `--skill`.
 | **minimalist-skill** | `minimalist-ui` | Editorial product UI (Notion/Linear vibes), restrained palette, crisp structure. |
 | **brutalist-skill** | `industrial-brutalist-ui` | Hard mechanical language: Swiss type, sharp contrast, experimental layout. |
 | **stitch-skill** | `stitch-design-taste` | Google Stitch-compatible rules, including optional `DESIGN.md` export format. |
-| **slop-audit** | `slop-audit` | *(This fork.)* Post-draft audit for generic or untrustworthy AI design patterns. Prescribes no stack, font or palette; the project's brand kit and CLAUDE.md always win. See [REVIEW.md](REVIEW.md). |
+| **slop-audit** | `slop-audit` | *(This fork.)* Post-draft audit for generic or untrustworthy AI design patterns. Prescribes no stack, font or palette; the project's brand kit and CLAUDE.md always win. Installed once at account level, not per repo. See [REVIEW.md](REVIEW.md). |
 
 ### Image generation skills
 
@@ -119,7 +122,7 @@ These produce design images only (no code). Use with ChatGPT Images, Codex image
 
 ### Which one should I use?
 
-- *(This fork)* In a repo with its own brand kit or house rules, install **slop-audit** only and run it after drafting.
+- *(This fork)* Use **slop-audit** as the one design skill, installed once at account level, and run it after drafting. The brand kit or CLAUDE.md of the repo you are in still wins.
 - Start with **taste-skill** for the safest general default. (Now v2 experimental - see what changed in the [CHANGELOG](CHANGELOG.md).)
 - If you depend on the exact behavior of the original taste-skill, install **taste-skill-v1** instead. 
 - Use **gpt-taste** when you want the stricter GPT/Codex-oriented rules and motion/layout enforcement. 
