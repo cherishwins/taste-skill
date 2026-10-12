@@ -1,6 +1,6 @@
 ---
 name: slop-audit
-description: Post-draft audit for web pages and UI that catches the patterns that make AI-built design look generic or untrustworthy - layout habits, default font and palette choices, fabricated data, copy tells, and broken motion or accessibility mechanics. Use after a page, section or component has been drafted or redesigned, when reviewing existing frontend work, or when asked whether something looks AI-made, generic or templated. It is an audit, not a style guide - it prescribes no stack, typeface or palette, and the project's brand kit and CLAUDE.md always override it.
+description: "Post-draft audit for web pages and UI: catches generic or untrustworthy AI design (fabricated data, borrowed endorsements, default fonts and palettes, copy tells, broken motion and accessibility). Prescribes nothing; the brand kit and CLAUDE.md override it."
 ---
 
 # Slop audit
@@ -20,9 +20,10 @@ The audit removes defaults. It never demands motion, imagery, dark mode or effec
 ## How to run it
 
 1. Look at the rendered page, not only the source. If a browser is available (Playwright with Chromium), check at 390px and 1280px wide. If not, say the visual checks were done from source.
-2. Go through sections A to G. For each hit, note what it is, where it is (file:line or section), and the fix.
-3. Always fix section A hits unless the user overrides. Fix the rest unless the brand overrides.
-4. Report in the format at the end.
+2. Measure widths and overflow from the DOM (`scrollWidth` against `clientWidth`, `getBoundingClientRect`). Headless captures can clip and are not evidence of overflow on their own.
+3. Go through sections A to G. For each hit, note what it is, where it is (file:line or section), and the fix.
+4. Always fix section A hits unless the user overrides. Fix the rest unless the brand overrides. Items marked *report only* are never edited by the audit.
+5. Report in the format at the end.
 
 ## A. Credibility: never ship these
 
@@ -42,6 +43,7 @@ The audit removes defaults. It never demands motion, imagery, dark mode or effec
 - **Three equal cards** as the default feature section.
 - **One layout repeated.** Image-and-text splits alternating three or more times in a row, or the same section shape reused down the page.
 - **Bento with filler.** N items get N cells, with no empty or decorative cells.
+- **Card groups out of line.** In cards, columns or pricing tiers set side by side, shared elements line up: actions pinned to the bottom of each card, feature lists starting at the same height, titles and prices on a shared baseline. Check by eye as well: an icon beside text, a glyph in a circle or a label in a button can be centred by the maths and still look off by a pixel or two.
 - **Overstuffed hero.** More than a headline, one line of support and one or two actions. Trust strips, pricing teasers, feature bullets and avatar rows go in sections of their own. The headline is two or three lines at most, and the primary action is visible without scrolling at 1280×720 and 390×844.
 - **Unrequested decoration.** Word strips along the bottom of the hero (`DESIGN · BUILD · SHIP`), locale, time or weather strips, "Scroll to explore", decorative status dots, pills laid over photos, version or build stamps on a marketing page, grid lines with nothing to organise.
 - **Floating corner paragraph.** A heading with a small paragraph stranded in the opposite corner. Put it under the heading or give it a real column.
@@ -63,6 +65,9 @@ These are tells only when they arrived by default. If the brand chose them, skip
 - **Pure #000 or #FFF** for large grounds or body text.
 - **Clipped italics.** Italic display type losing its descenders (y, g, j, p, q) at tight line-height.
 - **Measure.** Body text lines outside roughly 60 to 80 characters.
+- **Ragged headings and figures.** Headings that leave one word alone on the last line (`text-wrap: balance` for headings, `pretty` for prose). Numbers that sit in columns or change in place (prices, amounts, tables, counters) use tabular figures (`font-variant-numeric: tabular-nums`).
+- **A design system rebuilt by hand.** If the project uses an official design system (USWDS, GOV.UK Frontend, Material, Carbon, Fluent, Primer, Polaris), it comes from the official package, not hand-copied CSS. One system per project.
+- **Grain in the wrong place.** If the brand uses grain or noise, it sits on one fixed, `pointer-events: none` layer, never on scrolling containers, and is hidden in print.
 
 ## D. Copy tells
 
@@ -73,7 +78,7 @@ Read every visible string, including button labels, alt text, captions and error
 - **Performed craft.** "Field notes", "On the bench", "Quietly trusted by", fake archival captions ("Plate 03 · House archive").
 - **Micro-meta sentences** under headings that explain the section instead of being it.
 - **Placeholder identities.** John Doe, Jane Smith, Acme, Nexus.
-- **Em-dashes.** None in UI strings (buttons, nav, labels, captions, alt text). In prose, follow the house style. With no house style, more than about one per paragraph reads as machine-written. En-dashes in ranges are correct typography and stay.
+- **Em-dashes.** None in new UI strings (buttons, nav, labels, captions, alt text). Em-dashes that existing published UI strings already use consistently are house style; leave them. In prose, follow the house style. With no house style, more than about one per paragraph reads as machine-written. En-dashes in ranges and paired names are correct typography and stay.
 - **Tone slips.** Exclamation marks in system messages, "Oops!" errors, Title Case On Every Heading (unless house style).
 
 ## E. Motion
@@ -93,10 +98,13 @@ Read every visible string, including button labels, alt text, captions and error
 - **Forms.** Labels above inputs, never placeholder-as-label, errors inline beside the field.
 - **Viewport height.** Full-height sections use `min-height: 100dvh` (or `svh`), not `100vh`.
 - **Sticky survives.** Page wrappers use `overflow-x: clip`, not `hidden`. `hidden` breaks `position: sticky` inside it.
-- **Overflow.** No horizontal scroll from 320px up. Every multi-column layout states how it collapses on narrow screens.
+- **Overflow.** No horizontal scroll from 320px up, measured from the DOM. Every multi-column layout states how it collapses on narrow screens.
 - **One-line controls.** Desktop navigation fits on one line, and CTA labels don't wrap.
+- **Current page in navigation** (*report only*). On a section page, the nav should show where the reader is. Some sites leave certain pages without an active link on purpose, and some navs are written by a script (npsi-site's `tools/registry.py --nav`, for example). Report a missing indicator; never hand-edit a generated nav.
 - **Touch.** Tap targets are at least 44×44px.
 - **Images.** Meaningful alt text, `alt=""` for decorative images, space reserved so nothing shifts on load.
+- **Core Web Vitals.** LCP under 2.5s (the hero image preloaded or prioritised), INP under 200ms (no heavy work on the main thread during input), CLS under 0.1 (space reserved for images, fonts and embeds). Measure with Lighthouse or the browser's performance panel when one is available; otherwise list it under "Not run".
+- **Page furniture.** A `<title>`, meta description, `og:image` and the other share tags, a favicon, and a not-found page that carries the site's own chrome and a way back.
 - **Dependencies.** Every import exists in the dependency file before it is used.
 - **States.** Loading, empty and error states exist wherever data can be absent.
 
@@ -106,11 +114,16 @@ Ask before changing any of these: URLs and slugs, anchor IDs, primary nav labels
 
 ## Report format
 
+The first line is optional: a one-line read of what the page is and which rules govern it, so the reader can see why checks were skipped.
+
 ```
+Reading this as: <page kind> for <audience>, governed by <brand kit or house rules, or "no house style">
 Slop audit: <page or component>
-Checked: 390px and 1280px, rendered   (or: source only)
+Checked: 390px and 1280px, rendered, widths from the DOM   (or: source only)
 Fixed:   A  Invented figures: "47% faster" had no source, removed (index.html:212)
-         B  Eyebrows everywhere: 7 of 8 sections had one, kept on hero and pricing
+         B  Card groups out of line: pricing CTAs at three heights, pinned to card bottom
 Kept:    C  Instrument Serif display; the brand kit specifies it
-Not run: F  Contrast over the hero photo; no browser available
+         D  Em-dashes in the published classification lines; existing house style
+Report:  F  No active nav link on /pricing/; the nav is generated by a script, not edited
+Not run: F  Core Web Vitals; no browser available
 ```
